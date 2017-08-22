@@ -16,17 +16,17 @@ cd ../go-web-demo/bin; ./demo<br>
 　　　　　--controller // 控制层<br>
 　　　　　--dao  <br>
 　　　　　--framework<br>
-　　　　　--config // 配置文件管理<br>
-　　　　　--database // 数据库包<br>
-　　　　　--httpclient // http包<br>
-　　　　　--logs // 日志包<br>
-　　　　　--mvc // 路由规则处理<br>
-　　　　　--redis //Redis包<br>
-　　　　　--resultcode // 错误码常量<br>
-　　　　　--main // main包 启动入口<br>
-　　　　　--model // 模块层<br>
-　　　　　--service // 业务逻辑层<br>
-　　　　　--thirdparty // 第三方业务依赖<br>
+　　　　　　--config // 配置文件管理<br>
+　　　　　　--database // 数据库包<br>
+　　　　　　--httpclient // http包<br>
+　　　　　　--logs // 日志包<br>
+　　　　　　--mvc // 路由规则处理<br>
+　　　　　　--redis //Redis包<br>
+　　　　　　--resultcode // 错误码常量<br>
+　　　　　　--main // main包 启动入口<br>
+　　　　　　--model // 模块层<br>
+　　　　　　--service // 业务逻辑层<br>
+　　　　　　--thirdparty // 第三方业务依赖<br>
 　　　--vendor // 库依赖<br>
 
 1、路由<br>
