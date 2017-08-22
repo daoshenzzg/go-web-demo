@@ -1,0 +1,12 @@
+<seelog minlevel="info">
+    <outputs formatid="access">
+        <buffered size="10000" flushperiod="1000">
+            <console/>
+            <rollingfile type="date" datepattern="2006.01.02" maxrolls="30"
+                         filename="/Users/zhangzhiguang/Documents/logs/go_web_demo/access/access.log"/>
+        </buffered>
+    </outputs>
+    <formats>
+        <format id="access" format="%Date(2006-01-02 15:04:05.999)|%Msg%n"/>
+    </formats>
+</seelog>
