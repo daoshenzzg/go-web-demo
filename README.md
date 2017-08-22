@@ -8,8 +8,8 @@ cd ../go-web-demo/bin; ./demo<br>
 1.项目结构<br>
 　　　go-web-demo<br>
 　　　--bin<br>
-　　　--conf   // 配置文件<br>
-　　　--template // 响应输出的模板<br>
+　　　　--conf   // 配置文件<br>
+　　　　--template // 响应输出的模板<br>
 　　　--pkg<br>
 　　　--src <br>
 　　　　--person.mgtv.com<br>
