@@ -5,7 +5,7 @@ cd ../go-web-demo/src/person.mgtv.com/main/demo; go install<br>
 cd ../go-web-demo/bin; ./demo<br>
 
 功能介绍<br>
-    1.项目结构<br>
+　　1.项目结构<br>
     go-web-demo<br>
     --bin<br>
       --conf   // 配置文件<br>
