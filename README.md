@@ -23,10 +23,10 @@ cd ../go-web-demo/bin; ./demo<br>
 　　　　　　--mvc // 路由规则处理<br>
 　　　　　　--redis //Redis包<br>
 　　　　　　--resultcode // 错误码常量<br>
-　　　　　　--main // main包 启动入口<br>
-　　　　　　--model // 模块层<br>
-　　　　　　--service // 业务逻辑层<br>
-　　　　　　--thirdparty // 第三方业务依赖<br>
+　　　　　--main // main包 启动入口<br>
+　　　　　--model // 模块层<br>
+　　　　　--service // 业务逻辑层<br>
+　　　　　--thirdparty // 第三方业务依赖<br>
 　　　--vendor // 库依赖<br>
 
 1、路由<br>
