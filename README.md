@@ -1,5 +1,5 @@
 编译<br>
-cd ../go-web-demo/src/person.mgtv.com/main/demo; go install<br>
+cd ../go-web-demo/src/demo.yb.com/main/demo; go install<br>
 
 启动<br>
 cd ../go-web-demo/bin; ./demo<br>
@@ -12,7 +12,7 @@ cd ../go-web-demo/bin; ./demo<br>
 　　　　--template // 响应输出的模板<br>
 　　　--pkg<br>
 　　　--src <br>
-　　　　--person.mgtv.com<br>
+　　　　--demo.yb.com<br>
 　　　　　--controller // 控制层<br>
 　　　　　--dao  <br>
 　　　　　--framework<br>
@@ -36,12 +36,12 @@ cd ../go-web-demo/bin; ./demo<br>
     日志配置灵活，按天切割，1000ms或10000条日志，刷到磁盘.<br>
     其中access.xml输出请求数据：时间|ip|URI|queryString|等...<br>
     其中system.xml输出系统日志，如有异常自动分割到error.log日志<br>
-    __<br>
-    下面是启动的系统日志...包含时间、日志级别、日志对应文件、行号等<br>
-    2017-08-22 16:57:49.424 INFO person.mgtv.com/framework/database.InitDatabase[31]- Database[name:pwssword@tcp(xxx.xxx.xxx:3306)/feed?charset=utf8] init success.<br>
-2017-08-22 16:57:49.426 INFO person.mgtv.com/framework/redis.InitRedisCluster[36]- RedisCluster[redis.feed] [ip1:port1,ip2:port2] init success.<br>
-2017-08-22 16:57:49.426 INFO person.mgtv.com/framework/httpclient.init.1[27]- HttpClient[connTimeout=1s, rwTimeout=1s, maxIdleConn=100] init success.<br>
-2017-08-22 16:57:49.426 INFO person.mgtv.com/framework/mvc.(*App).Run[40]- Http server running on 8188<br>
+    __<br>
+    下面是启动的系统日志...包含时间、日志级别、日志对应文件、行号等<br>
+    2017-08-22 16:57:49.424 INFO demo.yb.com/framework/database.InitDatabase[31]- Database[name:pwssword@tcp(xxx.xxx.xxx:3306)/feed?charset=utf8] init success.<br>
+2017-08-22 16:57:49.426 INFO demo.yb.com/framework/redis.InitRedisCluster[36]- RedisCluster[redis.feed] [ip1:port1,ip2:port2] init success.<br>
+2017-08-22 16:57:49.426 INFO demo.yb.com/framework/httpclient.init.1[27]- HttpClient[connTimeout=1s, rwTimeout=1s, maxIdleConn=100] init success.<br>
+2017-08-22 16:57:49.426 INFO demo.yb.com/framework/mvc.(*App).Run[40]- Http server running on 8188<br>
 
 3、mysql<br>
     支持事务提交<br>
