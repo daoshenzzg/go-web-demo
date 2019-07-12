@@ -10,8 +10,8 @@
 
 [mysql]
     [mysql.school]
-        addr = "10.200.8.185:3308"
-        dsn = "ugc_vod:vod1234@tcp(10.200.8.185:3308)/ugc_vod?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+        addr = "ip:port"
+        dsn = "ugc_vod:vod1234@tcp(ip:port)/ugc_vod?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
         active = 5
         idle = 2
         idleTimeout = "4h"
@@ -20,7 +20,7 @@
         tranTimeout = "2000ms"
 
 [redis]
-	addr = "10.200.8.185:7600"
+	addr = "ip:port"
 	idle = 10
 	active = 10
 	dialTimeout = "1s"
@@ -35,4 +35,3 @@
         keepAlive = "5s"
         dialTimeout = "1s"
         timeout = "1s"
-
