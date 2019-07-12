@@ -97,24 +97,29 @@ $ swag init
 
 ### 验证
 大功告成，访问：http://localhost:8080/swagger/index.html
+
 <img src="docs/swagger.png" height="400px;"/>
 
 ## 代码赏析
 
 ### 基于toml的配置文件
 用起来不要太爽，谁用谁知道...
+
 <img src="docs/code_config.png" height="400px;"/>
 
 ### Router配置
 基于gin的Router高效、强大、简单
+
 <img src="docs/code_router.png" height="400px;"/>
 
 ### Middleware拦截器
 基于gin的middleware，可以实现日志打印、权限验证等等..
+
 <img src="docs/code_middleware.png" height="400px;"/>
 
 ### 表单Validator功能
 很实用的表单validation功能，文档：https://gopkg.in/go-playground/validator.v8
+
 <img src="docs/code_validation.png" height="400px;"/>
 
 ### 优雅退出
@@ -122,6 +127,7 @@ $ swag init
 
 ### 经典优雅的错误码设计
 定义Codes，并直接errors.Cause(e).(Codes)进行强转判断，完美兼容golang的error显性处理机制
+
 <img src="docs/code_ecode.png" height="400px;"/>
 
 ### DB事务操作
