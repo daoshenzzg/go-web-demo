@@ -1,0 +1,82 @@
+definitions:
+  render.JSON:
+    properties:
+      code:
+        type: integer
+      data:
+        type: object
+      msg:
+        type: string
+      ttl:
+        type: integer
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/v1/student/add:
+    post:
+      parameters:
+      - description: 学生姓名
+        in: query
+        name: studName
+        required: true
+        type: string
+      - description: 年龄
+        in: query
+        name: studAge
+        required: true
+        type: integer
+      - description: 性别
+        in: query
+        name: studSex
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.JSON'
+            type: object
+      summary: 添加学生
+  /api/v1/student/list:
+    get:
+      parameters:
+      - description: 学生姓名
+        in: query
+        name: studName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.JSON'
+            type: object
+      summary: 学生列表
+  /api/v1/student/update:
+    post:
+      parameters:
+      - description: 学生编号
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: 学生姓名
+        in: query
+        name: StudName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/render.JSON'
+            type: object
+      summary: 修改学生

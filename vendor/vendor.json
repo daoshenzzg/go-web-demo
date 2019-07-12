@@ -1,0 +1,21 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "90S9sFqcIo/uuwQzz1t/wYs7GEs=",
+			"path": "github.com/gin-gonic/gin",
+			"revision": "b869fe1415e4b9eb52f247441830d502aece2d4d",
+			"revisionTime": "2018-08-14T08:58:52Z",
+			"version": "v1.3",
+			"versionExact": "v1.3.0"
+		},
+		{
+			"checksumSHA1": "P/k5ZGf0lEBgpKgkwy++F7K1PSg=",
+			"path": "gopkg.in/go-playground/validator.v8",
+			"revision": "5f1438d3fca68893a817e4a66806cea46a9e4ebf",
+			"revisionTime": "2017-07-30T05:02:35Z"
+		}
+	],
+	"rootPath": "go-web-demo"
+}

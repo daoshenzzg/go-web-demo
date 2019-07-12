@@ -1,0 +1,38 @@
+[app]
+    httpPort = 8080
+    runMode = "debug"
+    readTimeout = "10s"
+    writeTimeout = "10s"
+
+[log]
+    dir = "/Users/zhangzhiguang/Documents/logs/go-web-demo/"
+    stdout = true
+
+[mysql]
+    [mysql.school]
+        addr = "10.200.8.185:3308"
+        dsn = "ugc_vod:vod1234@tcp(10.200.8.185:3308)/ugc_vod?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+        active = 5
+        idle = 2
+        idleTimeout = "4h"
+        queryTimeout = "1000ms"
+        execTimeout = "1000ms"
+        tranTimeout = "2000ms"
+
+[redis]
+	addr = "10.200.8.185:7600"
+	idle = 10
+	active = 10
+	dialTimeout = "1s"
+	readTimeout = "1s"
+	writeTimeout = "1s"
+	idleTimeout = "10s"
+
+[httpClient]
+    [httpClient.paopao]
+        maxTotal = 100
+        maxPerHost  = 100
+        keepAlive = "5s"
+        dialTimeout = "1s"
+        timeout = "1s"
+

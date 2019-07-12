@@ -1,0 +1,126 @@
+{
+    "info": {
+        "contact": {},
+        "license": {}
+    },
+    "paths": {
+        "/api/v1/student/add": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "添加学生",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生姓名",
+                        "name": "studName",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "年龄",
+                        "name": "studAge",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "性别",
+                        "name": "studSex",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/render.JSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/student/list": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "学生列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生姓名",
+                        "name": "studName",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/render.JSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/student/update": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "修改学生",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "学生编号",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "学生姓名",
+                        "name": "StudName",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/render.JSON"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "render.JSON": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object"
+                },
+                "msg": {
+                    "type": "string"
+                },
+                "ttl": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
