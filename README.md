@@ -157,6 +157,6 @@ $ swag init
 * gRPC Demo
 
 # 参考项目
-https://github.com/gin-gonic/gin
-https://github.com/EDDYCJY/go-gin-example
-https://github.com/bilibili/kratos
+* https://github.com/gin-gonic/gin
+* https://github.com/EDDYCJY/go-gin-example
+* https://github.com/bilibili/kratos
