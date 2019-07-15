@@ -8,7 +8,7 @@ import (
 
 const (
 	_family          = "access"
-	_slowLogDuration = time.Millisecond * 50
+	_slowLogDuration = time.Second
 )
 
 // SlowAccess handler record slow access

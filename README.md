@@ -1,7 +1,7 @@
 # go-web-demo: golang + gin
-这是一个基于[golang](https://golang.org/) + [gin](https://gin-gonic.com/)的基础web框架。项目是完全按照Gopher
-公认的[项目标准结构](https://github.com/golang-standards/project-layout)定制，很多组件的实现理念大量参考[B站](https://www.bilibili.com)
-开源的[Kratos](https://github.com/bilibili/kratos)设计理念。秉承的重复造轮子，加深自己对go的理解写了一些Demo。
+这是一个基于[golang](https://golang.org/) + [gin](https://gin-gonic.com/)的基础Web框架。项目是完全按照Gopher
+公认的[项目标准结构](https://github.com/golang-standards/project-layout)定制，很多组件的实现大量参考[B站](https://www.bilibili.com)
+开源的[Kratos](https://github.com/bilibili/kratos)设计理念。为加深自己对go的理解，写了一些Web常用的Examples。
 
 包含如下特性：
 * 基于[gin](https://gin-gonic.com/)的轻量级web框架，拥有更加出色的性能。
@@ -100,7 +100,19 @@ $ swag init
 
 <img src="docs/swagger.png" height="400px;"/>
 
-## 代码赏析
+## pprof性能分析工具
+
+### 安装pprof
+请参考：https://github.com/DeanThompson/ginpprof
+
+### 验证
+大功告成，访问：http://localhost:8080/debug/pprof/
+<img src="docs/pprof.png" height="400px;"/>
+
+### pprof实战
+请参考：https://blog.wolfogre.com/posts/go-ppof-practice/
+
+## 代码片段
 
 ### 基于toml的配置文件
 用起来不要太爽，谁用谁知道...

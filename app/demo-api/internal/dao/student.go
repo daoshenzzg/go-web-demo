@@ -2,6 +2,7 @@ package dao
 
 import (
 	"context"
+	"fmt"
 	"go-web-demo/app/demo-api/internal/model"
 	xsql "go-web-demo/library/database/sql"
 	"go-web-demo/library/log"
@@ -9,15 +10,20 @@ import (
 )
 
 const (
-	_queryStudentListSQL  = "SELECT id, stud_name, stud_age, stud_sex FROM student LIMIT 10"
 	_updateStudentNameSQL = "UPDATE student SET stud_name=?, create_time=? WHERE id=?"
 	_insertStudentSQL     = "INSERT INTO student(stud_name, stud_age, stud_sex, create_time, update_time)VALUES(?, ?, ?, ?, ?)"
 )
 
 // Student List
 func (d *Dao) ListStudent(c context.Context, studName string) (studList []*model.Student, err error) {
+	sql := "SELECT id, stud_name, stud_age, stud_sex "
+	sql += "FROM student "
+	if len(studName) > 0 {
+		sql+= fmt.Sprintf("WHERE stud_name = '%s' ", studName)
+	}
+	sql += "LIMIT 10"
 	studList = make([]*model.Student, 0)
-	rows, err := d.db.Query(c, _queryStudentListSQL)
+	rows, err := d.db.Query(c, sql)
 	if err != nil {
 		return
 	}

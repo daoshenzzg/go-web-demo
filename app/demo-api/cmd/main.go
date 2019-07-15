@@ -9,6 +9,7 @@ import (
 	"go-web-demo/library/log"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"syscall"
 	"time"
 )
@@ -17,8 +18,8 @@ func main() {
 	flag.Parse()
 
 	// IDE中，你也可以放开注释，直接运行。
-	/*dir, _ := filepath.Abs("./app/demo-api/configs/application.toml")
-	flag.Set("conf", dir)*/
+	dir, _ := filepath.Abs("./app/demo-api/configs/application.toml")
+	flag.Set("conf", dir)
 
 	// 初始化配置
 	conf.Init()
