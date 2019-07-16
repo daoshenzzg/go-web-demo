@@ -13,7 +13,7 @@
 
 * 基于[toml](https://github.com/toml-lang/toml)的配置文件，真的是谁用谁知道。
 * 参考[Kratos](https://github.com/bilibili/kratos)实现的log组件。支持配置日志位置、按文件大小滚动日志、缓冲大小等。   
-* 参考[Kratos](https://github.com/bilibili/kratos)实现的mysql组件。支持事务、慢查询日志记录等。
+* 参考[Kratos](https://github.com/bilibili/kratos)实现的mysql组件。读写分离、支持事务、慢查询日志记录等。
 * 基于[redigo](https://github.com/gomodule/redigo)封装的redis组件。这也是golang官方推荐的redis包。
 * 基于net/http封装的http连接池组件。
 * 经典的错误码设计理念，与golang的error处理机制完美结合。

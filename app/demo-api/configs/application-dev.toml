@@ -12,6 +12,7 @@
     [mysql.school]
         addr = "ip:port"
         dsn = "username:username@tcp(ip:port)/database?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+        readDSN = ["username:username@tcp(ip:port)/database?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"]
         active = 5
         idle = 2
         idleTimeout = "4h"
