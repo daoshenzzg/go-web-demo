@@ -27,7 +27,7 @@
 * 优化 http Client 组件，并集成 hystrix，配置 demo 如下
 ```toml
 [httpClient]
-    [httpClient.fantuan]
+    [httpClient.abc]
         addr = "http://api.abc.com"
         [httpClient.abc.clientConf]
             maxTotal = 10
