@@ -10,29 +10,38 @@
 
 [mysql]
     [mysql.school]
-        addr = "ip:port"
-        dsn = "username:username@tcp(ip:port)/database?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
-        readDSN = ["username:username@tcp(ip:port)/database?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"]
+        addr = "127.0.0.1:3306"
+        dsn = "root:123456@tcp(127.0.0.1:3306)/school?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+        readDSN = ["root:123456@tcp(127.0.0.1:3306)/school?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"]
         active = 5
         idle = 2
         idleTimeout = "4h"
-        queryTimeout = "1000ms"
-        execTimeout = "1000ms"
-        tranTimeout = "2000ms"
+        queryTimeout = "1s"
+        execTimeout = "1s"
+        tranTimeout = "2s"
 
 [redis]
-	addr = "ip:port"
+	addr = "127.0.0.1:6379"
 	idle = 10
 	active = 10
 	dialTimeout = "1s"
-	readTimeout = "1s"
+	readTimeout = "500ms"
 	writeTimeout = "1s"
 	idleTimeout = "10s"
 
 [httpClient]
-    [httpClient.paopao]
-        maxTotal = 100
-        maxPerHost  = 100
-        keepAlive = "5s"
-        dialTimeout = "1s"
-        timeout = "1s"
+    [httpClient.fantuan]
+        addr = "http://fantuan.bz.mgtv.com"
+        [httpClient.fantuan.clientConf]
+            maxTotal = 10
+            maxPerHost  = 10
+            keepAlive = "5s"
+            dialTimeout = "1s"
+            timeout = "1s"
+            [httpClient.fantuan.clientConf.breaker]
+                namespace = "fantuan"
+                timeout = "3s"
+                maxConcurrentRequests = 5
+                requestVolumeThreshold= 1
+                sleepWindow = "5s"
+                errorPercentThreshold = 50

@@ -5,12 +5,13 @@ import (
 	"github.com/BurntSushi/toml"
 	"go-web-demo/library/cache/redis"
 	"go-web-demo/library/database/sql"
-	xhttp "go-web-demo/library/http"
 	"go-web-demo/library/log"
+	xhttp "go-web-demo/library/net/http"
 	xtime "go-web-demo/library/time"
 )
 
 var (
+	httpPort int
 	confPath string
 	Conf     = &Config{}
 )
@@ -25,7 +26,7 @@ type Config struct {
 	// Redis
 	Redis *redis.Config
 	// HttpClient
-	HttpClient *HttpClient
+	HttpClient map[string]*HttpClient
 }
 
 type App struct {
@@ -40,11 +41,13 @@ type MySQL struct {
 }
 
 type HttpClient struct {
-	Paopao *xhttp.Config
+	Addr       string
+	ClientConf *xhttp.ClientConfig
 }
 
 func init() {
-	flag.StringVar(&confPath, "conf", "", "config path")
+	flag.IntVar(&httpPort, "http.port", -1, "http port")
+	flag.StringVar(&confPath, "conf", "./app/demo-api/configs/application.toml", "config path")
 }
 
 func Init() (err error) {

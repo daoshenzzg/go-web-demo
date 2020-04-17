@@ -9,7 +9,6 @@ import (
 	"go-web-demo/library/log"
 	"os"
 	"os/signal"
-	"path/filepath"
 	"syscall"
 	"time"
 )
@@ -17,18 +16,15 @@ import (
 func main() {
 	flag.Parse()
 
-	// IDE中，你也可以放开注释，直接运行。
-	dir, _ := filepath.Abs("./app/demo-api/configs/application.toml")
-	flag.Set("conf", dir)
-
 	// 初始化配置
 	conf.Init()
 	// 初始化日志
 	log.Init(conf.Conf.Log)
 	defer log.Close()
 	srv := service.New(conf.Conf)
-	log.Info("go-web-demo start")
 	httpSrv := http.New(conf.Conf, srv)
+	log.Info("ab-test started, listening on port: %d, runMode: %s.",
+		conf.Conf.App.HttpPort, conf.Conf.App.RunMode)
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, syscall.SIGHUP, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT)
 	for {

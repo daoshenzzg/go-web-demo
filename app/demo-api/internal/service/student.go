@@ -8,7 +8,6 @@ import (
 	"go-web-demo/app/demo-api/internal/model"
 	"go-web-demo/library/ecode"
 	"go-web-demo/library/log"
-	xtime "go-web-demo/library/time"
 	"time"
 )
 
@@ -65,8 +64,8 @@ func (s *Service) TxAddTeacherAndStudent(c context.Context) (err error) {
 	}
 	teacher := &model.Teacher{
 		TeacherName: "莫言",
-		CreateTime:  xtime.Duration(time.Now().Unix()),
-		UpdateTime:  xtime.Duration(time.Now().Unix()),
+		CreateTime:  time.Now(),
+		UpdateTime:  time.Now(),
 	}
 	_, err = s.dao.TxAddTeacher(c, tx, teacher)
 	if err != nil {
@@ -78,8 +77,8 @@ func (s *Service) TxAddTeacherAndStudent(c context.Context) (err error) {
 		StudName:   "迪丽热巴",
 		StudSex:    "女",
 		StudAge:    25,
-		CreateTime: xtime.Duration(time.Now().Unix()),
-		UpdateTime: xtime.Duration(time.Now().Unix()),
+		CreateTime: time.Now(),
+		UpdateTime: time.Now(),
 	}
 	_, err = s.dao.TxAddStudent(c, tx, stud)
 	if err != nil {
@@ -102,7 +101,7 @@ func (s *Service) SetRedisKey(c context.Context, key, val string, expire int64) 
 
 // SearchKeyword
 func (s *Service) SearchKeyword(c *gin.Context) (keyword string, err error) {
-	keyword, err = s.dao.SearchKeyword()
+	keyword, err = s.dao.SearchKeyword(c)
 	if err != nil {
 		err = ecode.RequestErr
 		return

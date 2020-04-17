@@ -22,6 +22,46 @@
 # 项目结构
 <img src="docs/project.png" height="400px;"/>
 
+# 更新 2020-04-17
+* 新加基于 [hystrix-go](https://github.com/afex/hystrix-go) 的熔断器。
+* 优化 http Client 组件，并集成 hystrix，配置 demo 如下
+```toml
+[httpClient]
+    [httpClient.fantuan]
+        addr = "http://api.abc.com"
+        [httpClient.abc.clientConf]
+            maxTotal = 10
+            maxPerHost  = 10
+            keepAlive = "5s"
+            dialTimeout = "1s"
+            timeout = "1s"
+            [httpClient.abc.clientConf.breaker]
+                namespace = "abc"
+                timeout = "3s"
+                maxConcurrentRequests = 5
+                requestVolumeThreshold= 1
+                sleepWindow = "5s"
+                errorPercentThreshold = 50
+```
+* 新加 gRPC Client 组件，并集成 hystrix，配置 demo 如下
+```toml
+[grpcClient]
+    [grpcClient.sayHello]
+        addr = "10.1.172.180:9101"
+        [grpcClient.sayHello.clientConf]
+            dialTimeout = "1s"
+            timeout = "1s"
+            poolSize = 4
+            [grpcClient.sayHello.clientConf.breaker]
+                namespace = "sayHello"
+                timeout = "1s"
+                maxConcurrentRequests = 1000
+                requestVolumeThreshold= 10
+                sleepWindow = "5s"
+                errorPercentThreshold = 60
+```
+* 完善相关组件单元测试
+
 # 使用说明
 
 ## 安装编译
@@ -40,8 +80,10 @@ $ go mod init
 # 编译
 $ cd ../app/demo-api/cmd; go build
 
-# 运行(当然，这里你也可以手动指定运行端口)
+# 运行
 $ ./cmd -conf ../configs/application.toml 
+或者指定端口
+$ ./cmd -conf ../configs/application.toml --http.port=8080
 ```
 
 ## Swagger
@@ -152,9 +194,9 @@ $ swag init
 <img src="docs/code_http.png" height="400px;"/>
 
 # 后续规划
-* DB、Redis、Http熔断机制
-* Router限速器功能
-* gRPC Demo
+* [x] DB、Redis、Http、gRPC组件
+* [x] 熔断器
+* [ ] Router限速器功能
 
 # 参考项目
 * https://github.com/gin-gonic/gin

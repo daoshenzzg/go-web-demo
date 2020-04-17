@@ -1,12 +1,12 @@
 package model
 
 import (
-	xtime "go-web-demo/library/time"
+	"time"
 )
 
 type Teacher struct {
-	Id          int64          `json:"id"`
-	TeacherName string         `json:"teacher_name"`
-	CreateTime  xtime.Duration `json:"create_time"`
-	UpdateTime  xtime.Duration `json:"update_time"`
+	Id          int64     `json:"id"`
+	TeacherName string    `json:"teacher_name"`
+	CreateTime  time.Time `json:"create_time"`
+	UpdateTime  time.Time `json:"update_time"`
 }

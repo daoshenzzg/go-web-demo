@@ -19,18 +19,20 @@ func (d *Dao) ListStudent(c context.Context, studName string) (studList []*model
 	sql := "SELECT id, stud_name, stud_age, stud_sex "
 	sql += "FROM student "
 	if len(studName) > 0 {
-		sql+= fmt.Sprintf("WHERE stud_name = '%s' ", studName)
+		sql += fmt.Sprintf(" WHERE stud_name = '%s' ", studName)
 	}
-	sql += "LIMIT 10"
+	sql += " LIMIT 10"
 	studList = make([]*model.Student, 0)
 	rows, err := d.db.Query(c, sql)
 	if err != nil {
+		log.Error("d.db.Query(%s) error(%v)", sql, err)
 		return
 	}
 	for rows.Next() {
 		tmp := new(model.Student)
 		err = rows.Scan(&tmp.Id, &tmp.StudName, &tmp.StudAge, &tmp.StudSex)
 		if err != nil {
+			log.Error("rows.Scan error(%v)", err)
 			continue
 		}
 		studList = append(studList, tmp)

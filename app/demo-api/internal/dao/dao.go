@@ -5,9 +5,8 @@ import (
 	"go-web-demo/app/demo-api/internal/conf"
 	"go-web-demo/library/cache/redis"
 	xsql "go-web-demo/library/database/sql"
-	xhttp "go-web-demo/library/http"
 	"go-web-demo/library/log"
-	"net/http"
+	xhttp "go-web-demo/library/net/http"
 )
 
 // Dao struct
@@ -18,16 +17,18 @@ type Dao struct {
 	// redis
 	redis *redis.Pool
 	// httpClient
-	httpClient *http.Client
+	fantuanClient    *xhttp.Client
+	searchKeywordURL string
 }
 
 // New init
 func New(c *conf.Config) (dao *Dao) {
 	dao = &Dao{
-		c:          c,
-		db:         xsql.NewMySQL(c.MySQL.School),
-		redis:      redis.NewPool(c.Redis),
-		httpClient: xhttp.NewClient(c.HttpClient.Paopao),
+		c:                c,
+		db:               xsql.NewMySQL(c.MySQL.School),
+		redis:            redis.NewPool(c.Redis),
+		fantuanClient:    xhttp.NewClient(c.HttpClient["fantuan"].ClientConf),
+		searchKeywordURL: c.HttpClient["fantuan"].Addr + "/fantuan/soKeyword",
 	}
 	return
 }

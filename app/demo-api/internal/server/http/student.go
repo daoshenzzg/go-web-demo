@@ -6,7 +6,6 @@ import (
 	"go-web-demo/app/demo-api/internal/model"
 	"go-web-demo/library/ecode"
 	"go-web-demo/library/render"
-	xtime "go-web-demo/library/time"
 	"time"
 )
 
@@ -26,7 +25,7 @@ func ListStudent(c *gin.Context) {
 		return
 	}
 
-	r.JSON(studList, ecode.OK)
+	r.JSON(studList, nil)
 }
 
 // @Summary 添加学生
@@ -55,8 +54,8 @@ func AddStudent(c *gin.Context) {
 		StudName:   v.StudName,
 		StudAge:    v.StudAge,
 		StudSex:    v.StudSex,
-		CreateTime: xtime.Duration(time.Now().Unix()),
-		UpdateTime: xtime.Duration(time.Now().Unix()),
+		CreateTime: time.Now(),
+		UpdateTime: time.Now(),
 	}
 	id, err := srv.AddStudent(c, stud)
 	r.JSON(id, err)
