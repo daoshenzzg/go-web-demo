@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"go-web-demo/library/ecode"
 	"go-web-demo/library/log"
 	"go-web-demo/library/net/netutil/breaker"
 	"go-web-demo/library/render"
@@ -11,11 +12,24 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"sync"
 	"testing"
 	"time"
 )
 
-func TestClient(t *testing.T) {
+var (
+	started bool
+	mu      sync.Mutex
+)
+
+func tStartSrv() {
+	if started {
+		return
+	}
+
+	mu.Lock()
+	defer mu.Unlock()
+
 	gin.SetMode(gin.ReleaseMode)
 	engine := gin.New()
 	readTimeout := xtime.Duration(time.Second)
@@ -39,6 +53,17 @@ func TestClient(t *testing.T) {
 		r := render.New(ctx)
 		r.JSON("", nil)
 	})
+	engine.GET("/mytest3", func(ctx *gin.Context) {
+		r := render.New(ctx)
+		key1 := ctx.Query("key1")
+		key2 := ctx.Query("key2")
+		if key1 == "" || key2 == "" {
+			r.JSON(nil, ecode.RequestErr)
+			return
+		}
+		time.Sleep(time.Millisecond * 10)
+		r.JSON("", nil)
+	})
 
 	go func() {
 		// service connections
@@ -47,6 +72,11 @@ func TestClient(t *testing.T) {
 			panic(err)
 		}
 	}()
+	started = true
+}
+
+func TestClient(t *testing.T) {
+	tStartSrv()
 
 	client := NewClient(
 		&ClientConfig{
@@ -71,18 +101,17 @@ func TestClient(t *testing.T) {
 
 	// test Get
 	params := url.Values{}
-	params.Set("type", "5")
-	params.Set("clipId", "336434")
-	params.Set("version", "5.5")
+	params.Set("key1", "1")
+	params.Set("key2", "2")
 
-	if err := client.Get(context.Background(), "http://10.1.172.179:8101/odin/p1/coll/info", params, &res); err != nil {
+	if err := client.Get(context.Background(), "http://localhost:8081/mytest3", params, &res); err != nil {
 		t.Errorf("HTTPClient: expected no error but got %v, res %v", err, res)
 	}
 	if res.Code != 200 {
 		t.Errorf("HTTPClient: expected code=0 but got %d res %v", res.Code, res)
 	}
 	// test Post
-	err := client.Post(context.Background(), "http://10.1.172.179:8101/odin/p1/coll/info", params, &res)
+	err := client.Post(context.Background(), "http://localhost:8081/mytest3", params, &res)
 	if err != nil {
 		t.Errorf("HTTPClient: expected no error but got %v", err)
 	}
@@ -93,24 +122,26 @@ func TestClient(t *testing.T) {
 		t.Errorf("HTTPClient: expected error timeout for request")
 	}
 	client.SetConfig(&ClientConfig{Timeout: xtime.Duration(time.Millisecond * 300)})
-	if err := client.Get(context.Background(), "http://10.1.172.179:8101/odin/p1/coll/info", params, &res); err != nil {
+	if err := client.Get(context.Background(), "http://localhost:8081/mytest3", params, &res); err != nil {
 		t.Errorf("HTTPClient: expected no error but got %v", err)
 	}
 	client.SetConfig(&ClientConfig{Timeout: xtime.Duration(time.Millisecond * 1)})
-	if err := client.Get(context.Background(), "http://10.1.172.179:8101/odin/p1/coll/info", params, &res); err == nil {
+	if err := client.Get(context.Background(), "http://localhost:8081/mytest3", params, &res); err == nil {
 		t.Errorf("HTTPClient: expected error timeout but got %v", err)
 	}
 	client.SetConfig(&ClientConfig{KeepAlive: xtime.Duration(time.Second * 70)})
 }
 
 func TestDo(t *testing.T) {
+	tStartSrv()
+
 	var (
-		clipId  = 336434
-		version = "5.5"
-		uri     = "http://10.1.172.179:8101/odin/p1/coll/info"
-		req     *http.Request
-		client  *Client
-		err     error
+		key1   = 1
+		key2   = "2"
+		uri    = "http://localhost:8081/mytest3"
+		req    *http.Request
+		client *Client
+		err    error
 	)
 	client = NewClient(
 		&ClientConfig{
@@ -127,8 +158,8 @@ func TestDo(t *testing.T) {
 			},
 		})
 	params := url.Values{}
-	params.Set("clipId", strconv.Itoa(clipId))
-	params.Set("version", version)
+	params.Set("key1", strconv.Itoa(key1))
+	params.Set("key2", key2)
 	if req, err = client.NewRequest("GET", uri, params); err != nil {
 		t.Errorf("client.NewRequest: get error(%v)", err)
 	}
@@ -141,6 +172,8 @@ func TestDo(t *testing.T) {
 }
 
 func BenchmarkDo(b *testing.B) {
+	tStartSrv()
+
 	cf := &ClientConfig{
 		DialTimeout: xtime.Duration(time.Second),
 		Timeout:     xtime.Duration(time.Second),
@@ -155,12 +188,12 @@ func BenchmarkDo(b *testing.B) {
 		},
 	}
 	var (
-		clipId  = 336434
-		version = "5.5"
-		uri     = "http://10.1.172.179:8101/odin/p1/coll/info"
-		req     *http.Request
-		client  *Client
-		err     error
+		key1   = 1
+		key2   = "2"
+		uri    = "http://localhost:8081/mytest3"
+		req    *http.Request
+		client *Client
+		err    error
 	)
 	client = NewClient(cf)
 	b.ResetTimer()
@@ -169,8 +202,8 @@ func BenchmarkDo(b *testing.B) {
 		for pb.Next() {
 			// client.SetConfig(cf)
 			params := url.Values{}
-			params.Set("clipId", strconv.Itoa(clipId))
-			params.Set("version", version)
+			params.Set("key1", strconv.Itoa(key1))
+			params.Set("key2", key2)
 			req, err = client.NewRequest(http.MethodGet, uri, params)
 			if err != nil {
 				b.Errorf("newRequest: get error(%v)", err)
@@ -185,15 +218,15 @@ func BenchmarkDo(b *testing.B) {
 		}
 	})
 
-	uri = "http://10.1.172.179:8101/odin/p1/coll/infox" // NOTE: for breaker
+	uri = "http://localhost:8081/mytest4" // NOTE: for breaker
 	b.ResetTimer()
 	b.N = 10
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			// client.SetConfig(cf)
 			params := url.Values{}
-			params.Set("clipId", strconv.Itoa(clipId))
-			params.Set("version", version)
+			params.Set("key1", strconv.Itoa(key1))
+			params.Set("key2", key2)
 			req, err := client.NewRequest(http.MethodGet, uri, params)
 			if err != nil {
 				b.Errorf("newRequest: get error(%v)", err)
